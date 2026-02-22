@@ -14,7 +14,7 @@
     "clsx": "^2.1.1",
     "firebase": "^11.0.0",
     "firebase-admin": "^12.6.0",
-    "next": "15.2.4",
+    "next": "15.2.8",
     "openai": "^4.88.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
