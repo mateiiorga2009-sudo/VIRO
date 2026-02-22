@@ -1,12 +1,20 @@
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
-import { openai } from "@/lib/openai";
-import { checkAndIncrementUsage } from "@/lib/usage";
-import { saveHistory } from "@/lib/history";
 
 export async function POST(request) {
   try {
     const body = await request.json();
     const { topic, platform, frequency, extras, userId } = body;
+
+    // Lazy-load heavy deps to avoid build-time issues on Vercel.
+    const [{ openai }, { checkAndIncrementUsage }, { saveHistory }] =
+      await Promise.all([
+        import("@/lib/openai"),
+        import("@/lib/usage"),
+        import("@/lib/history"),
+      ]);
 
     const usage = await checkAndIncrementUsage({
       uid: userId,
@@ -20,6 +28,13 @@ export async function POST(request) {
             "Limite diario alcanzado. Actualiza a Pro para generaciones ilimitadas.",
         },
         { status: 403 }
+      );
+    }
+
+    if (!process.env.OPENAI_API_KEY) {
+      return NextResponse.json(
+        { error: "OPENAI_API_KEY no configurada en el servidor." },
+        { status: 500 }
       );
     }
 

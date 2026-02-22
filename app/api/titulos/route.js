@@ -1,3 +1,6 @@
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 import { openai } from "@/lib/openai";
 import { checkAndIncrementUsage } from "@/lib/usage";
