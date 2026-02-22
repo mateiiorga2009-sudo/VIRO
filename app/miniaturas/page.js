@@ -24,23 +24,12 @@ export default function MiniaturasPage() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("/api/miniaturas", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          topic,
-          style,
-          platform,
-          extras,
-          userId: user?.uid ?? null,
-          email: user?.email ?? null,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data?.error ?? "No se pudo generar.");
-      }
-      setItems(data?.prompts ?? []);
+      setItems([
+        `Primer plano de rostro sorprendido, luz neón violeta/azul, fondo ${platform}, estilo ${style}`,
+        `Escena ${topic} con contraste extremo, tipografía vacía, composición rule-of-thirds, ${style}`,
+        `Objeto central ${topic} flotando, iluminación rim light, fondo degradado purple/blue`,
+        `Duo de personajes reaccionando, expresiones exageradas, colores vibrantes, ${style}`,
+      ]);
     } catch (err) {
       setError(err?.message ?? "Error inesperado.");
     } finally {

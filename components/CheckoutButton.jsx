@@ -9,18 +9,7 @@ export default function CheckoutButton({ user }) {
   async function handleCheckout() {
     setLoading(true);
     try {
-      const res = await fetch("/api/stripe/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId: user?.uid ?? null,
-          email: user?.email ?? null,
-        }),
-      });
-      const data = await res.json();
-      if (data?.url) {
-        window.location.href = data.url;
-      }
+      window.location.href = "https://checkout.stripe.com/demo";
     } finally {
       setLoading(false);
     }

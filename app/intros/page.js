@@ -24,23 +24,12 @@ export default function IntrosPage() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("/api/intros", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          topic,
-          tone,
-          duration,
-          extras,
-          userId: user?.uid ?? null,
-          email: user?.email ?? null,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data?.error ?? "No se pudo generar.");
-      }
-      setItems(data?.intros ?? []);
+      setItems([
+        `Si hoy solo tienes 12 segundos, aprende esto sobre ${topic}.`,
+        `No cometas este error con ${topic}, te lo explico en 12s.`,
+        `El truco rapido para ${topic} que nadie te dijo.`,
+        `En 12 segundos te muestro la forma simple de ${topic}.`,
+      ]);
     } catch (err) {
       setError(err?.message ?? "Error inesperado.");
     } finally {

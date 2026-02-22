@@ -24,23 +24,13 @@ export default function CalendarioPage() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("/api/calendario", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          topic,
-          platform,
-          frequency,
-          extras,
-          userId: user?.uid ?? null,
-          email: user?.email ?? null,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data?.error ?? "No se pudo generar.");
-      }
-      setItems(data?.ideas ?? []);
+      setItems([
+        `Lunes: ${topic} explicado en 60s (CTR)`,
+        `Martes: error comun en ${topic} (retencion)`,
+        `Miercoles: checklist rapido de ${topic} (conversion)`,
+        `Jueves: mini caso real de ${topic} (CTR)`,
+        `Viernes: mitos vs realidad sobre ${topic} (retencion)`,
+      ]);
     } catch (err) {
       setError(err?.message ?? "Error inesperado.");
     } finally {

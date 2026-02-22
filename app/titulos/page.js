@@ -25,24 +25,13 @@ export default function TitulosPage() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("/api/titulos", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          topic,
-          audience,
-          platform,
-          tone,
-              extras,
-          userId: user?.uid ?? null,
-          email: user?.email ?? null,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data?.error ?? "No se pudo generar.");
-      }
-      setItems(data?.titles ?? []);
+      setItems([
+        `Como lograr ${topic} en 7 dias sin perder tiempo`,
+        `El error #1 que frena tu ${topic} y como evitarlo`,
+        `${topic}: la guia rapida que nadie te explica`,
+        `3 trucos simples para mejorar ${topic} hoy`,
+        `La rutina corta para dominar ${topic} sin excusas`,
+      ]);
     } catch (err) {
       setError(err?.message ?? "Error inesperado.");
     } finally {
